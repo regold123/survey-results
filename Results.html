@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <?!= HtmlService.createHtmlOutputFromFile('Stylesheet').getContent(); ?>
+    <?!= HtmlService.createHtmlOutputFromFile('Javascript').getContent(); ?>
+  </head>
+  <body>
+  
+  <div class="container">
+    <br>
+    <br>
+
+    <div class="block">
+      <h3></h3>
+      <div class="form-group dropd">
+        <label for="city">Choose a city:</label>
+        <select id="city" class="form-control" name="entry.180359339" onclick="google.script.run.withSuccessHandler(chooseMikveh).getMikvaot()">
+          <option value="nocity">Choose city</option>
+        </select>
+      </div>
+      
+      <div class="form-group dropd">
+       <label for="address">Choose a mikveh:</label>
+       <select id="address" class="form-control myInput" name="entry.1568682454" onclick="filterTable()">
+         <option value="nomikveh">Choose mikveh</option>
+       </select>
+      </div>
+    
+    <input type="text" class="form-control search" id="myWord" placeholder="Search by name..." title="Type in a name" onkeyup="wordSearch()">    
+    <small id="nomikveh" class="form-text text-muted">If you can't find your mikveh here, 
+    <a href="http://theedencenter.com/contact-us/" target="_blank">let us know.</a></small>
+    </div>
+    <br>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>City</th>
+          <th>Mikveh</th>
+          <th>Make appointments?</th>
+          <th>Ask if you're sick?</th>
+          <th>Balaniot stand 2 meters away?</th>
+          <th>Balaniot keeping tovlot apart?</th>
+          <th>Balaniot not touching the tovelet?</th>
+          <th>How many women in the waiting room?</th>
+          <th class="wait">Where do women wait?</th>
+          <th>Are tovlot instructed to wash hands?</th>
+          <th>Are balaniot cleaning room with bleach?</th>
+          <th>Are balaniot wiping down the rail?</th>
+          <th class="comments">Additional comments:</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+
+      </tbody>
+    </table>  
+  
+  
+  </div>
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
+

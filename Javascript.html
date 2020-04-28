@@ -1,0 +1,225 @@
+<script>
+
+function chooseCity(values){
+  var select = document.getElementById("city");
+  var options = values; //Two dimensional array
+
+  for(var i = 0; i < options.length; i++) {
+    var opt = options[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+  }
+}
+
+google.script.run.withSuccessHandler(chooseCity)
+.getCities();
+
+
+function chooseMikveh(mikvaot){
+
+  var mikveh = document.getElementById('address');
+  
+  var j, L = mikveh.options.length -1;
+    for(j = L; j >= 0; j--) {  
+    mikveh.remove(j);
+    }
+
+  var cityPicked = document.getElementById('city').value;
+  var thisCityMikvaot = mikvaot[cityPicked];
+  
+  if (thisCityMikvaot == null) { 
+    var el1 = document.createElement("option");
+    el1.textContent = "Choose a mikveh";
+    el1. value = "default";
+    mikveh.appendChild(el1)
+  } else {
+  for(var i = 0; i < thisCityMikvaot.length; i++) {
+    var opt = thisCityMikvaot[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    mikveh.appendChild(el);
+  } }
+}
+
+
+
+//Generate Table with Results
+document.addEventListener("DOMContentLoaded",function() {
+    google.script.run.withSuccessHandler(generateTable).getTableData();
+});
+
+function generateTable(dataArray) {
+  
+      var tbody = document.getElementById("table-body");
+   
+      dataArray.forEach(function(r){
+  
+      var row = document.createElement("tr");
+      var col1 = document.createElement("td");
+      col1.textContent = r[0];
+      col1.className = "Name";
+      var col2 = document.createElement("td");
+      col2.textContent = r[1];
+      col2.className = "Name";
+      var col3 = document.createElement("td");
+      col3.textContent = r[2];
+      var col4 = document.createElement("td");
+      col4.textContent = r[3];
+      var col5 = document.createElement("td");
+      col5.textContent = r[4];
+      var col6 = document.createElement("td");
+      col6.textContent = r[5];
+      var col7 = document.createElement("td");
+      col7.textContent = r[6];
+      var col8 = document.createElement("td");
+      col8.textContent = r[7];
+      var col9 = document.createElement("td");
+      col9.textContent = r[8];
+      var col10 = document.createElement("td");
+      col10.textContent = r[9];
+      var col11 = document.createElement("td");
+      col11.textContent = r[10];
+      var col12 = document.createElement("td");
+      col12.textContent = r[11];    
+      var col13 = document.createElement("td");
+      col13.textContent = r[12];    
+      row.appendChild(col1);
+      row.appendChild(col2);
+      row.appendChild(col3);
+      row.appendChild(col4);
+      row.appendChild(col5);
+      row.appendChild(col6);
+      row.appendChild(col7);
+      row.appendChild(col8);
+      row.appendChild(col9);
+      row.appendChild(col10);
+      row.appendChild(col11);
+      row.appendChild(col12);
+      row.appendChild(col13);    
+      tbody.appendChild(row);
+      
+      var tdCheck = document.getElementById('td')
+      if (tdCheck = ""){
+      tdCheck.value = "&nbsp;"
+
+    } 
+    
+   }) ;
+   tbody.style = "display: hidden";
+}
+
+
+//function mySearch() {
+//  var input, filter, table, name, td, cell, i, j;
+//  input = document.getElementById("address");
+//  filter = input.value;
+//  table = document.getElementById("table-body");
+//  tr = table.getElementsByTagName("tr");
+//  name = table.getElementsByClassName("Name");
+//
+//  for (i = 0; i < name.length; i++) {
+//    td = name[i].getElementsByTagName("td")[0];
+//    if (td) {
+//      if (td.innerhTML.indexOf(filter) > -1) {
+//        name[i].style.display = "";
+//        } else {
+//          name[i].style.display = "none";
+//    
+//    // Hide the row initially.
+//    tr[i].style.display = "none";
+//
+//    td = tr[i].getElementsByTagName("td")[0];
+//
+//    for (var j = 0; j < td.length; j++) {
+//      cell = tr[i].getElementsByTagName("td")[j];
+//      if (cell) {
+//        if (cell.innerHTML.indexOf(filter) > -1) {
+//          tr[i].style.display = "";
+//          break;
+//        } 
+//      }
+//    }
+//  }
+
+
+
+function filterTable(select) {
+  // Variables
+  var dropdown, table, rows, cells, country, filter;
+  dropdown = document.getElementById("address");
+  table = document.getElementById("table-body");
+  rows = table.getElementsByTagName("tr");
+  filter = dropdown.value;
+
+  // Loops through rows and hides those with countries that don't match the filter
+  for (var row of rows) { // `for...of` loops through the NodeList
+    cells = row.getElementsByTagName("td");
+    country = cells[1] || null; // gets the 2nd `td` or nothing
+    // if the filter is set to 'All', or this is the header row, or 2nd `td` text matches filter
+    if (filter === country.textContent) {
+      row.style.display = ""; // shows this row
+    }
+    else {
+      row.style.display = "none"; // hides this row
+    }
+  }
+}
+
+//function mySearch() {
+//  var select = document.getElementById("option");
+//  var filter = input.value;
+//  var table = document.getElementById("table-body");
+//  var tr = table.getElementsByTagName("tr");
+//    
+//  for (var i = 0; i < tr.length; i++) {
+//    // Hide the row initially.
+//    tr[i].style.display = "none";
+//
+//    var td = tr[i].getElementsByTagName("td");
+//    for (var j = 0; j < td.length; j++) {
+//      var cell = tr[i].getElementsByTagName("td")[j];
+//      if (cell) {
+//        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+//          tr[i].style.display = "";
+//          break;
+//        }
+//      }
+//    }
+//  }
+//}
+//  
+
+function wordSearch() {
+  var input = document.getElementById("myWord").value;
+  var filter = input.toUpperCase();
+  var table = document.getElementById("table-body");
+  var tr = table.getElementsByTagName("tr");
+  
+  if(input.length == 0){
+      tr.style = "display: hidden";
+    } else {
+    
+  for (var i = 0; i < tr.length; i++) {
+    // Hide the row initially.
+    tr[i].style.display = "none";
+
+    var td = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < td.length; j++) {
+      var cell = tr[i].getElementsByTagName("td")[j];
+      if (cell) {
+        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          break;
+        }}
+      }
+    }
+  }
+}
+
+
+
+
+</script>
