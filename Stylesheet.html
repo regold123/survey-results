@@ -4,11 +4,35 @@ body{
   background: #e9e6d1;
 }
 
+
+.full {
+  height: 100%;
+} 
+
+table {
+  display: block;
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  overflow-x:scroll;
+}
+
 th {
   background: #c9c08b;
   color: white;
   min-width: 100px;
-}  
+  position: sticky;
+  top: 0;
+}
+
+//thead.scrollHead{
+//  overflow-x: scroll;
+//}
+
 
 .container {
   padding: 0px 0px 0px 0px;
@@ -28,9 +52,10 @@ th {
   background-color: #f4f2eb;
 }
 
-.table {
+table {
   background-color: white;
   font-size: 12px;
+  height: 100%;
 }
 
 .wait {
@@ -38,7 +63,7 @@ th {
 }
 
 .comments {
-  min-width: 400px;
+  min-width: 1000px;
 }
 
 </style>
