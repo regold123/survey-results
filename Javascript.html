@@ -1,7 +1,6 @@
 <script>
 
 
-// jQuery version
 function chooseCity(values){
 
   for(var i = 0; i < values.length; i++) {
@@ -14,30 +13,7 @@ function chooseCity(values){
 google.script.run.withSuccessHandler(chooseCity)
 .getCities();
 
-/* vanilla js version
-function chooseCity(values){
-  var select = document.getElementById("city");
-  var options = values; //Two dimensional array
 
-  for(var i = 0; i < options.length; i++) {
-    var opt = options[i];
-    var el = document.createElement("option");
-    el.textContent = opt;
-    el.value = opt;
-    select.appendChild(el);
-  }
-}
-
-google.script.run.withSuccessHandler(chooseCity)
-.getCities();
-*/
-
-//function chooseMikveh(city,mikvaot){
-//  console.log(mikvaot)
-//}
-
-
-// jQuery version
 function chooseMikveh(mikvaot){
 
   $('#address').empty();
@@ -56,48 +32,7 @@ function chooseMikveh(mikvaot){
   } }
 }
 
-/*
-var select = document.getElementById('category').options.length;
 
-    for (var i = 0; i < select; ) {
-        document.getElementById('category').options.remove(i);
-    }
-
-  var L = $('#address').children('option').length -1;
-    for(L >= 0) {    
-    $('#address').remove(L);
-    }
-*/    
-
-
-/*vanilla JS version:
-function chooseMikveh(mikvaot){
-
-  var mikveh = document.getElementById('address');
-  
-  var j, L = mikveh.options.length -1;
-    for(j = L; j >= 0; j--) {  
-    mikveh.remove(j);
-    }
-
-  var cityPicked = document.getElementById('city').value;
-  var thisCityMikvaot = mikvaot[cityPicked];
-  
-  if (thisCityMikvaot == null) { 
-    var el1 = document.createElement("option");
-    el1.textContent = "Choose a mikveh";
-    el1. value = "default";
-    mikveh.appendChild(el1)
-  } else {
-  for(var i = 0; i < thisCityMikvaot.length; i++) {
-    var opt = thisCityMikvaot[i];
-    var el = document.createElement("option");
-    el.textContent = opt;
-    el.value = opt;
-    mikveh.appendChild(el);
-  } }
-}
-*/
 
 //Generate Table with Results
 document.addEventListener("DOMContentLoaded",function() {
@@ -164,88 +99,25 @@ function generateTable(dataArray) {
 
 
 
-//function mySearch() {
-//  var input, filter, table, name, td, cell, i, j;
-//  input = document.getElementById("address");
-//  filter = input.value;
-//  table = document.getElementById("table-body");
-//  tr = table.getElementsByTagName("tr");
-//  name = table.getElementsByClassName("Name");
-//
-//  for (i = 0; i < name.length; i++) {
-//    td = name[i].getElementsByTagName("td")[0];
-//    if (td) {
-//      if (td.innerhTML.indexOf(filter) > -1) {
-//        name[i].style.display = "";
-//        } else {
-//          name[i].style.display = "none";
-//    
-//    // Hide the row initially.
-//    tr[i].style.display = "none";
-//
-//    td = tr[i].getElementsByTagName("td")[0];
-//
-//    for (var j = 0; j < td.length; j++) {
-//      cell = tr[i].getElementsByTagName("td")[j];
-//      if (cell) {
-//        if (cell.innerHTML.indexOf(filter) > -1) {
-//          tr[i].style.display = "";
-//          break;
-//        } 
-//      }
-//    }
-//  }
 
-//document.getElementsByClass("myInput").addEventListener('change', function (filterTable) {
-function filterTable(select) {
-  // Variables
-  var dropdown, table, rows, cells, country, filter;
-  dropdown = document.getElementById("address");
-  table = document.getElementById("table-body");
-  rows = table.getElementsByTagName("tr");
-  filter = dropdown.value;
-
-  // Loops through rows and hides those with countries that don't match the filter
-  for (var row of rows) { // `for...of` loops through the NodeList
-    cells = row.getElementsByTagName("td");
-    country = cells[1] || null; // gets the 2nd `td` or nothing
-    // if the filter is set to 'All', or this is the header row, or 2nd `td` text matches filter
-    if (filter === country.textContent) {
-      row.style.display = ""; // shows this row
-    }
-    else {
-      row.style.display = "none"; // hides this row
-    }
-  }
-}
+$(document).ready(function(){
+  $("#address").on("click", function() {
+    var value = $(this).val().toLowerCase();
+    $("#table-body tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 
 
-function wordSearch() {
-  var input = document.getElementById("myWord").value;
-  var filter = input.toUpperCase();
-  var table = document.getElementById("table-body");
-  var tr = table.getElementsByTagName("tr");
-  
-  if(input.length == 0){
-      tr.style = "display: hidden";
-    } else {
-    
-  for (var i = 0; i < tr.length; i++) {
-    // Hide the row initially.
-    tr[i].style.display = "none";
-
-    var td = tr[i].getElementsByTagName("td");
-    for (var j = 0; j < td.length; j++) {
-      var cell = tr[i].getElementsByTagName("td")[j];
-      if (cell) {
-        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-          break;
-        }}
-      }
-    }
-  }
-}
+$(document).ready(function(){
+  $("#myWord").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#table-body tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 
 
 
